@@ -1,0 +1,20 @@
+{% extends "app_base.html" %}
+{% block title %}Dashboard · Tagapudo{% endblock %}
+{% block content %}
+<header class="page-head">
+  <h1>Good day, {{ user.first_name|default:user.username }}</h1>
+  <p>List your harvest, let buyers compete for it, and sell before it spoils.</p>
+</header>
+{% if not user.phone or not user.address %}
+<div class="notice">Add your contact number and address so buyers know where your crops come from. <a href="{% url 'profile_edit' %}">Complete your profile</a></div>
+{% endif %}
+<section class="card">
+  <h2>How selling works on Tagapudo</h2>
+  <ol class="steps">
+    <li><strong>List your harvest</strong><span>Post the crop, quantity, harvest date and a starting price.</span></li>
+    <li><strong>Buyers place bids</strong><span>Urban buyers bid openly, so demand sets a fair price.</span></li>
+    <li><strong>Accept the best bid</strong><span>Close the lot and hand over the crop while it is still fresh.</span></li>
+  </ol>
+</section>
+<section class="card"><h2>Listings and bids</h2><p>Harvest listings and bidding open in the next phase of Tagapudo.</p></section>
+{% endblock %}

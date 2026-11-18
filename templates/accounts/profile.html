@@ -1,0 +1,27 @@
+{% extends "app_base.html" %}
+{% block title %}My profile · Tagapudo{% endblock %}
+{% block content %}
+<header class="page-head"><h1>My profile</h1></header>
+<section class="card">
+  <div class="profile-head">
+    {% if user.profile_photo %}
+      <img class="avatar" src="{{ user.profile_photo.url }}" alt="Profile photo of {{ user.username }}">
+    {% else %}
+      <div class="avatar" aria-hidden="true">{{ user.get_full_name|default:user.username|slice:":1"|upper }}</div>
+    {% endif %}
+    <div>
+      <h2>{{ user.get_full_name|default:user.username }}</h2>
+      <span class="role-chip" style="background:var(--plum);color:#fff">{{ user.get_role_display }}</span>
+    </div>
+  </div>
+  <dl class="details">
+    <dt>Username</dt><dd>{{ user.username }}</dd>
+    <dt>Email</dt><dd>{{ user.email }}</dd>
+    <dt>Contact number</dt><dd>{{ user.phone|default:"Not set" }}</dd>
+    <dt>Address</dt><dd>{{ user.address|default:"Not set" }}</dd>
+    <dt>Farm / cooperative / business</dt><dd>{{ user.organization|default:"Not set" }}</dd>
+    <dt>Member since</dt><dd>{{ user.date_joined|date:"F d, Y" }}</dd>
+  </dl>
+  <div class="form-actions"><a class="btn" href="{% url 'profile_edit' %}">Edit profile</a></div>
+</section>
+{% endblock %}

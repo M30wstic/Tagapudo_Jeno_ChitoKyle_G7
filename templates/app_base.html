@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="shell">
+  <aside class="sidebar">
+    <a class="logo" href="{% url 'dashboard' %}">Tagapudo</a>
+    <div class="whoami">
+      <strong>{{ user.get_full_name|default:user.username }}</strong>
+      <span class="role-chip">{{ user.get_role_display }}</span>
+    </div>
+    <nav aria-label="Main">
+      <a href="{% url 'dashboard' %}"
+         {% if "dashboard" in request.resolver_match.url_name %}class="active" aria-current="page"{% endif %}>Dashboard</a>
+
+      {% if user.role == "FARMER" %}
+        <span class="soon">My harvest lots <em>Soon</em></span>
+        <span class="soon">Incoming bids <em>Soon</em></span>
+        <span class="soon">Sales history <em>Soon</em></span>
+      {% elif user.role == "COOPERATIVE" %}
+        <span class="soon">Member harvests <em>Soon</em></span>
+        <span class="soon">Lots open for bidding <em>Soon</em></span>
+        <span class="soon">Incoming bids <em>Soon</em></span>
+      {% elif user.role == "BUYER" %}
+        <span class="soon">Browse fresh lots <em>Soon</em></span>
+        <span class="soon">My bids <em>Soon</em></span>
+        <span class="soon">Purchases <em>Soon</em></span>
+      {% elif user.role == "ADMIN" %}
+        {% if user.is_staff %}<a href="/admin/">Manage users</a>{% endif %}
+        <span class="soon">All lots <em>Soon</em></span>
+        <span class="soon">Reports <em>Soon</em></span>
+      {% endif %}
+
+      <a href="{% url 'profile' %}"
+         {% if "profile" in request.resolver_match.url_name %}class="active" aria-current="page"{% endif %}>My profile</a>
+    </nav>
+    <form class="nav-group" method="post" action="{% url 'logout' %}">
+      {% csrf_token %}
+      <button class="nav-btn" type="submit">Log out</button>
+    </form>
+  </aside>
+  <main class="main">
+    {% include "_messages.html" %}
+    {% block content %}{% endblock %}
+  </main>
+</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "auth_base.html" %}
+{% block title %}Log in · Tagapudo{% endblock %}
+{% block content %}
+<h2>Log in</h2>
+<p class="sub">Welcome back. Pick up where your lots and bids left off.</p>
+<form method="post" novalidate>
+  {% csrf_token %}
+  <input type="hidden" name="next" value="{{ next }}">
+  {{ form.non_field_errors }}
+  {% for field in form %}{% include "_field.html" %}{% endfor %}
+  <button class="btn" type="submit">Log in</button>
+</form>
+<p class="alt">New to Tagapudo? <a href="{% url 'signup' %}">Create an account</a></p>
+{% endblock %}

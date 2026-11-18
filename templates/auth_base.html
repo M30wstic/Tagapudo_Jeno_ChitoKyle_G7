@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block body %}
+<div class="auth">
+  <section class="auth-pitch">
+    <a class="logo" href="/">Tagapudo</a>
+    <h1>Sell the harvest before it spoils.</h1>
+    <p>Tagapudo connects farming cooperatives and urban buyers through open bidding, so crops find a fair price and a buyer while they are still fresh.</p>
+    <div class="lot" aria-label="Sample bidding lot">
+      <div class="lot-head"><strong>Tomatoes, grade A</strong><span class="tag">Sample lot</span></div>
+      <dl>
+        <div><dt>Quantity</dt><dd>200 kg</dd></div>
+        <div><dt>Harvested</dt><dd>6 hours ago</dd></div>
+        <div><dt>Highest bid</dt><dd class="top-bid">₱48 / kg</dd></div>
+        <div><dt>Bids so far</dt><dd>7</dd></div>
+      </dl>
+      <div class="fresh-label"><span>Freshness window</span><span>Closes in 3h 20m</span></div>
+      <div class="fresh"><div class="fresh-bar" style="width:70%"></div></div>
+    </div>
+  </section>
+  <section class="auth-form">
+    {% include "_messages.html" %}
+    {% block content %}{% endblock %}
+  </section>
+</div>
+{% endblock %}

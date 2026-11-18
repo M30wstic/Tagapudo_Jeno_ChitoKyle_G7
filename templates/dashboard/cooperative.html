@@ -1,0 +1,20 @@
+{% extends "app_base.html" %}
+{% block title %}Dashboard · Tagapudo{% endblock %}
+{% block content %}
+<header class="page-head">
+  <h1>Good day, {{ user.first_name|default:user.username }}</h1>
+  <p>Pool your members' harvests into lots and let buyers bid on them before anything spoils.</p>
+</header>
+{% if not user.phone or not user.organization %}
+<div class="notice">Add your cooperative's name and contact number so buyers can trust who they are bidding on. <a href="{% url 'profile_edit' %}">Complete your profile</a></div>
+{% endif %}
+<section class="card">
+  <h2>How selling works on Tagapudo</h2>
+  <ol class="steps">
+    <li><strong>Pool member harvests</strong><span>Combine your members' crops into a single lot with a harvest date.</span></li>
+    <li><strong>Buyers bid openly</strong><span>Competing bids lift the price instead of leaving you guessing.</span></li>
+    <li><strong>Accept and dispatch</strong><span>Pick the winning bid and send the lot out while it is fresh.</span></li>
+  </ol>
+</section>
+<section class="card"><h2>Lots and bids</h2><p>Lot creation and bid management open in the next phase of Tagapudo.</p></section>
+{% endblock %}
