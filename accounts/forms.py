@@ -30,3 +30,19 @@ class CustomUserCreationForm(UserCreationForm):
         if role == CustomUser.Role.ADMIN:
             raise forms.ValidationError("Invalid role.")
         return role
+
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ("first_name", "last_name", "email", "phone", "organization")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["phone"].label = "Contact number"
+
+    def clean_email(self):
+        email = self.cleaned_data["email"].strip().lower()
+        if CustomUser.objects.filter(email__iexact=email).exclude(pk=self.instance.pk).exists():
+            raise forms.ValidationError("An account with this email already exists.")
+        return email
